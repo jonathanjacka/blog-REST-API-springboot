@@ -24,6 +24,12 @@ public class PostContoller {
         return ResponseEntity.ok(postService.getAllPosts());
     }
 
+    //GET single blog post by id API
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id){
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
     //POST blog post REST API
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto){
