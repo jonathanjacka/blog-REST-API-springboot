@@ -5,11 +5,9 @@ import com.springboot.blog.model.Post;
 import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.PostService;
-//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service //indicates service class to aid Spring boot auto-detection
@@ -65,8 +63,6 @@ public class PostServiceImpl implements PostService {
         PostDto postResponse = mapToDto(newPost);
         return postResponse;
     }
-
-
 
     private PostDto mapToDto(Post post){
         PostDto newPostDto = new PostDto();
