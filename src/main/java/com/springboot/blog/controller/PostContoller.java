@@ -24,7 +24,7 @@ public class PostContoller {
         return ResponseEntity.ok(postService.getAllPosts());
     }
 
-    //GET single blog post by id API
+    //GET single blog post by id REST API
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id){
         return ResponseEntity.ok(postService.getPostById(id));
@@ -34,6 +34,12 @@ public class PostContoller {
     @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto){
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
+    }
+
+    //PUT blog post by id REST API
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePostById(@RequestBody PostDto postDto, @PathVariable(name = "id") long id){
+        return ResponseEntity.ok(postService.updatePostById(postDto, id));
     }
 
 }
