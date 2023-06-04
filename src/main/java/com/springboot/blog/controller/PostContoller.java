@@ -20,8 +20,11 @@ public class PostContoller {
 
     //GET all blog posts API
     @GetMapping
-    public ResponseEntity<List<PostDto>> getAllPosts(){
-        return ResponseEntity.ok(postService.getAllPosts());
+    public ResponseEntity<List<PostDto>> getAllPosts(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+    ){
+        return ResponseEntity.ok(postService.getAllPosts(pageNo, pageSize));
     }
 
     //GET single blog post by id REST API
