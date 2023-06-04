@@ -42,4 +42,10 @@ public class PostContoller {
         return ResponseEntity.ok(postService.updatePostById(postDto, id));
     }
 
+    //DELETE blog post by id REST API
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PostDto> deletePostById(@PathVariable(name = "id") long id) {
+        return ResponseEntity.ok(postService.deletePostById(id));
+    }
+
 }
