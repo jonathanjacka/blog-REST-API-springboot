@@ -9,6 +9,7 @@ import com.springboot.blog.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,17 +29,19 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostResponse getAllPosts(int pageNo, int pageSize) {
+    public PostResponse getAllPosts(int pageNo, int pageSize, String sortBy) {
 
-        /* PAGINATION */
+        /* PAGINATION AND SORTING */
         //Create pageable instance
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         //Get posts via generic Page object
         Page<Post> posts = postRepository.findAll(pageable);
         //Get content from Page instance to List of posts using getContent() method
         List<Post> paginatedPosts = posts.getContent();
 
         List<PostDto> content = paginatedPosts.stream().map(post -> mapToDto(post)).collect(Collectors.toList());
+
+        //Post Response object allows for specific format of response
         PostResponse postResponse = new PostResponse();
         postResponse.setContent(content);
         postResponse.setPageNo(posts.getNumber());

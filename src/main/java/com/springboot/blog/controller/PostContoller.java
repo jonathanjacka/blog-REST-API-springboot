@@ -23,9 +23,10 @@ public class PostContoller {
     @GetMapping
     public ResponseEntity<PostResponse> getAllPosts(
             @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy
     ){
-        return ResponseEntity.ok(postService.getAllPosts(pageNo, pageSize));
+        return ResponseEntity.ok(postService.getAllPosts(pageNo, pageSize, sortBy));
     }
 
     //GET single blog post by id REST API
