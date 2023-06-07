@@ -10,6 +10,9 @@ import com.springboot.blog.service.CommentService;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service //Indicates service class which allows for injection into other classes though App context
 public class CommentServiceImpl implements CommentService {
 
@@ -22,6 +25,14 @@ public class CommentServiceImpl implements CommentService {
     public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
+    }
+
+    @Override
+    public List<CommentDto> getAllCommentsByPostId(long postId) {
+        //retrieve comments by post Id
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        //return list of comments converted to Dtos
+        return comments.stream().map(comment -> mapToDto(comment)).collect(Collectors.toList());
     }
 
     @Override
