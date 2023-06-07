@@ -1,5 +1,6 @@
 package com.springboot.blog.service.impl;
 
+import com.springboot.blog.exception.BlogAPIException;
 import com.springboot.blog.exception.ResourceNotFoundException;
 import com.springboot.blog.model.Comment;
 import com.springboot.blog.model.Post;
@@ -8,6 +9,7 @@ import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.CommentService;
 //import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,10 +31,26 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDto> getAllCommentsByPostId(long postId) {
-        //retrieve comments by post Id
+        //Retrieve post instance by id
+        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+        //retrieve comments by post id
         List<Comment> comments = commentRepository.findByPostId(postId);
         //return list of comments converted to Dtos
         return comments.stream().map(comment -> mapToDto(comment)).collect(Collectors.toList());
+    }
+
+    @Override
+    public CommentDto getCommentById(long postId, long commentId) {
+        //Retrieve post instance by id
+        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+        //Retrieve comment instance by id
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
+        //Confirm comment is associated with id
+        if(!comment.getPost().getId().equals(post.getId())){
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment is not associated with Post Id");
+        }
+
+        return mapToDto(comment);
     }
 
     @Override
