@@ -54,6 +54,27 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public CommentDto updateCommentById(long postId, long commentId, CommentDto updatedComment) {
+        //Retrieve post instance by id
+        Post post = postRepository.findById(postId).orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
+        //Retrieve comment instance by id
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", commentId));
+        //Confirm comment is associated with id
+        if(!comment.getPost().getId().equals(post.getId())){
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment is not associated with Post Id");
+        }
+
+        //update comment that was retrieved
+        comment.setName(updatedComment.getName());
+        comment.setEmail(updatedComment.getEmail());
+        comment.setBody(updatedComment.getBody());
+
+        Comment newComment = commentRepository.save(comment);
+
+        return mapToDto(newComment);
+    }
+
+    @Override
     public CommentDto createComment(long postId, CommentDto commentDto) {
 
         Comment comment = mapToComment(commentDto);
