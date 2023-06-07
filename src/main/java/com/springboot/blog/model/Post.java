@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 //Handles getters and setters as well as constructors
 @Data
@@ -35,4 +38,7 @@ public class Post {
 
     @Column(name = "content", nullable = false)
     private String content;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true) //Ensures that an operation on parent will include children
+    private Set<Comment> comments = new HashSet<>();
 }
