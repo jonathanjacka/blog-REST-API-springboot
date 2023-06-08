@@ -6,6 +6,7 @@ import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,10 +23,12 @@ public class PostServiceImpl implements PostService {
 
     //Constructor-based dependency injection
     private PostRepository postRepository;
+    private ModelMapper mapper;
 
     //@Autowired - can omit from Spring 3 if a class is a bean and only has one field/constructor
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
         this.postRepository = postRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -94,21 +97,12 @@ public class PostServiceImpl implements PostService {
     }
 
     private PostDto mapToDto(Post post){
-        PostDto newPostDto = new PostDto();
-        newPostDto.setId(post.getId());
-        newPostDto.setTitle(post.getTitle());
-        newPostDto.setDescription(post.getDescription());
-        newPostDto.setContent(post.getContent());
-
-        return newPostDto;
+        PostDto postDto = mapper.map(post, PostDto.class);
+        return postDto;
     }
 
     private Post mapToPost(PostDto postDto){
-        Post post = new Post();
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
-
+        Post post = mapper.map(postDto, Post.class);
         return post;
     }
 }

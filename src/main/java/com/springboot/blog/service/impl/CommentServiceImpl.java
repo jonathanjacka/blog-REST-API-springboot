@@ -9,6 +9,7 @@ import com.springboot.blog.repository.CommentRepository;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.CommentService;
 //import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,15 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     // post repository is required to access post, owing to one to many relationship
     private PostRepository postRepository;
+    //moodel mapper
+    private ModelMapper mapper;
 
     //@Autowired - not required as spring will auto-detect and inject required dependencies,
     //can omit from Spring 3 if a class is a bean and only has one field/constructor
-    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository, ModelMapper mapper) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -107,22 +111,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private CommentDto mapToDto(Comment comment){
-        CommentDto commentDto = new CommentDto();
-        commentDto.setId(comment.getId());
-        commentDto.setName(comment.getName());
-        commentDto.setEmail(comment.getEmail());
-        commentDto.setBody(comment.getBody());
-
+        CommentDto commentDto = mapper.map(comment, CommentDto.class);
         return commentDto;
     }
 
     private Comment mapToComment(CommentDto commentDto){
-        Comment comment = new Comment();
-        comment.setId(commentDto.getId());
-        comment.setName(commentDto.getName());
-        comment.setEmail(commentDto.getEmail());
-        comment.setBody(commentDto.getBody());
-
+        Comment comment = mapper.map(commentDto, Comment.class);
         return comment;
     }
 }

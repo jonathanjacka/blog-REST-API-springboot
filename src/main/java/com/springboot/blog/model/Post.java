@@ -2,16 +2,20 @@ package com.springboot.blog.model;
 
 //standard API for accessing Rel dbs in Java (successor to JPA API, which is now deprecated
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 
-//Handles getters and setters as well as constructors
-@Data
+/*
+Lombok's dependency handles getters and setters as well as constructors
+Normally, you @Data for all getter. setter, toString methods.
+However, Model Mapper conflicts with Lombok by using own overwriting of toString - returns comments set as empty
+Therefore use only @Getter and @Setter annotations to return comments set correctly
+*/
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
