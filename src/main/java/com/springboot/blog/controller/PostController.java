@@ -10,15 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/posts")
-public class PostContoller {
+public class PostController {
 
     private PostService postService;
 
-    public PostContoller(PostService postService) {
+    public PostController(PostService postService) {
         this.postService = postService;
     }
 
