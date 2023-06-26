@@ -42,7 +42,10 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable()).authorizeHttpRequests((auth) ->
                 //auth.anyRequest().authenticated() ** Allows access to all roles on any request
-                auth.requestMatchers(HttpMethod.GET, "/api/**").permitAll().anyRequest().permitAll()
+                auth.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest()
+                        .permitAll()
         ).httpBasic(Customizer.withDefaults());
         return http.build();
     }
