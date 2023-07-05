@@ -30,7 +30,6 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> getCategory(@PathVariable(value = "id") long id){
         CategoryDto result = categoryService.getCategory(id);
         return ResponseEntity.ok(result);
-
     }
 
     //Add category REST API
@@ -39,5 +38,17 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> addCategory(@RequestBody CategoryDto categoryDto) {
         CategoryDto newCategory = categoryService.addCategory(categoryDto);
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
+    }
+
+    //Update category REST API
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDto> updateCategory(
+            @RequestBody CategoryDto categoryDto,
+            @PathVariable(value = "id") long id) {
+
+        CategoryDto updatedCategory = categoryService.updateCategory(categoryDto, id);
+
+        return ResponseEntity.ok(updatedCategory);
     }
 }
