@@ -53,6 +53,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()).authorizeHttpRequests((auth) ->
                 //auth.anyRequest().authenticated() ** Allows access to all roles on any request
                 auth.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        //.requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll() //Example of specific, but not required
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest()
                         .authenticated())
