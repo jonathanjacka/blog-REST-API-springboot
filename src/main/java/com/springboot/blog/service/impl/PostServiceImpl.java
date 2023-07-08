@@ -1,9 +1,11 @@
 package com.springboot.blog.service.impl;
 
 import com.springboot.blog.exception.ResourceNotFoundException;
+import com.springboot.blog.model.Category;
 import com.springboot.blog.model.Post;
 import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
+import com.springboot.blog.repository.CategoryRepository;
 import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.PostService;
 import org.modelmapper.ModelMapper;
@@ -23,11 +25,13 @@ public class PostServiceImpl implements PostService {
 
     //Constructor-based dependency injection
     private PostRepository postRepository;
+    private CategoryRepository categoryRepository;
     private ModelMapper mapper;
 
     //@Autowired - can omit from Spring 3 if a class is a bean and only has one field/constructor
-    public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
+    public PostServiceImpl(PostRepository postRepository, CategoryRepository categoryRepository, ModelMapper mapper) {
         this.postRepository = postRepository;
+        this.categoryRepository = categoryRepository;
         this.mapper = mapper;
     }
 
@@ -87,8 +91,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto createPost(PostDto postDto) {
+        //Get category
+        Category category = categoryRepository.findById(postDto.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", postDto.getCategoryId()));
+
         //Convert Dto to model/entity
         Post post = mapToPost(postDto);
+        post.setCategory(category);
         Post newPost = postRepository.save(post);
 
         //Convert model instance back to Dto for return to controller
