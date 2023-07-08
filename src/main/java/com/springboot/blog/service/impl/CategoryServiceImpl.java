@@ -61,4 +61,14 @@ public class CategoryServiceImpl implements CategoryService {
 
         return modelMapper.map(updatedCategory, CategoryDto.class);
     }
+
+    @Override
+    public CategoryDto deleteCategory(long id) {
+        Category categoryToDelete = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
+
+        categoryRepository.delete(categoryToDelete);
+
+        return modelMapper.map(categoryToDelete, CategoryDto.class);
+    }
 }
