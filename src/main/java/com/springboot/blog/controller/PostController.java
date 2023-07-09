@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
@@ -35,6 +37,13 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id){
         return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    //GET posts by category REST API
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable(value = "id") long categoryId){
+        List<PostDto> posts = postService.getPostsByCategory(categoryId);
+        return ResponseEntity.ok(posts);
     }
 
     //POST blog post REST API
