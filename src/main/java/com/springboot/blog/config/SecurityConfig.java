@@ -55,6 +55,8 @@ public class SecurityConfig {
                 auth.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                         //.requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll() //Example of specific, but not required
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest()
                         .authenticated())
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint)
