@@ -58,7 +58,7 @@ public class CommentController {
     )
     @ApiResponse(
             responseCode = "201",
-            description = "Http Status 200 CREATED"
+            description = "Http Status 201 CREATED"
     )
     @SecurityRequirement(
             name = "Bearer Authorization"
