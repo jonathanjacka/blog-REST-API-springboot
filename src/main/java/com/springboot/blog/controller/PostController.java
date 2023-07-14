@@ -71,7 +71,7 @@ public class PostController {
     )
     @ApiResponse(
             responseCode = "200",
-            description = "Http Status 200 OK"
+            description = "Http Status 200 SUCCESS"
     )
     @GetMapping("/{id}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id){
@@ -87,7 +87,7 @@ public class PostController {
     )
     @ApiResponse(
             responseCode = "200",
-            description = "Http Status 200 OK"
+            description = "Http Status 200 SUCCESS"
     )
     public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable(value = "id") long categoryId){
         List<PostDto> posts = postService.getPostsByCategory(categoryId);
@@ -121,7 +121,7 @@ public class PostController {
     )
     @ApiResponse(
             responseCode = "200",
-            description = "Http Status 200 OK"
+            description = "Http Status 200 SUCCESS"
     )
     @SecurityRequirement(
             name = "Bearer Authorization"
@@ -140,7 +140,7 @@ public class PostController {
     )
     @ApiResponse(
             responseCode = "200",
-            description = "Http Status 200 OK"
+            description = "Http Status 200 SUCCESS"
     )
     @SecurityRequirement(
             name = "Bearer Authorization"
