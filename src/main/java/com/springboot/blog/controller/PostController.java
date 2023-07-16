@@ -34,7 +34,9 @@ public class PostController {
     //Swagger docs req
     @Operation(
             summary = "Get all Posts REST API",
-            description = "Returns a list of all blog posts from database. Default pagination is set to pageNo = 0 (first page) and pageSize = 10. For further reference on pagination, see examples below.\n" +
+            description = "Returns a list of all blog posts from database. Allows for both sorting and pagination."  +
+                    "\n" +
+                    "Default sorting is by post Id.  Default pagination is set to pageNo = 0 (first page) and pageSize = 10. For further reference on pagination and sorting: see examples below.\n" +
                     "\n" +
                     "Returns an object that includes the following:\n" +
                     "\n" +
