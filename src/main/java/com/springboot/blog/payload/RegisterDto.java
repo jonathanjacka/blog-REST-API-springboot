@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 //Swagger Docs
 @Schema(
-        description = "Register Data Transfer Object Model Information - returned on successful login"
+        description = "Register Data Transfer Object Model Information - returned on successful registration"
 )
 public class RegisterDto {
     //Swagger Docs
