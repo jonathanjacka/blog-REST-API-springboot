@@ -1,7 +1,7 @@
 services:
   my-blog-db:
-    image: mysql
+    image: postgres
     ports:
-      - "3306:3306"
+      - "5432:5432"
     env_file:
       - ".env"
