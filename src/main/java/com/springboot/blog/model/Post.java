@@ -40,7 +40,7 @@ public class Post {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true) //Ensures that an operation on parent will include children
