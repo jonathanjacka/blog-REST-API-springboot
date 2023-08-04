@@ -1,7 +1,7 @@
 # Spring Boot REST API: Blog 
 RESTful API for blog with posts, comments, authorization/authentication using Java/Spring Boot
 ---
-## *Branch `main` is setup to work with a PostgreSQL database, for deployment to Heroku*
+## *Branch `main` is setup to work with a PostgreSQL database, for deployment to Heroku* - live project [here!](https://blog-api-springboot-c301743401b3.herokuapp.com/swagger-ui/index.html)
 
 ### To run locally: 
    - Clone the project to your local machine, and install the dependencies.
@@ -19,6 +19,7 @@ mvn spring-boot:run
 Alternatively, use Intellij IDEA and simply run the application from within the IDE.
 
 ### API documentation:
+   - To view live documentation, [go here!](https://blog-api-springboot-c301743401b3.herokuapp.com/swagger-ui/index.html)
    - To view the Swagger-UI API documentation once the application is up and running, got to (http://localhost:8080/swagger-ui/index.html)
 
 ### Note 1: Requires use of environment variables
