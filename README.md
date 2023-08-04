@@ -1,7 +1,7 @@
 # Spring Boot REST API: Blog 
 RESTful API for blog with posts, comments, authorization/authentication using Java/Spring Boot
 ---
-## *Branch `postgres` is setup to work with a PostgreSQL database, for deployment to Heroku*
+## *Branch `main` is setup to work with a PostgreSQL database, for deployment to Heroku*
 
 ### To run locally: 
    - Clone the project to your local machine, and install the dependencies.
