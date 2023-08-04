@@ -1,7 +1,7 @@
 # Spring Boot REST API: Blog 
 RESTful API for blog with posts, comments, authorization/authentication using Java/Spring Boot
 ---
-## *Branch `main` is setup to work with a PostgreSQL database, for deployment to Heroku* - live project [here!](https://blog-api-springboot-c301743401b3.herokuapp.com/swagger-ui/index.html)
+## *Branch `main` is setup to work with a PostgreSQL database, for deployment to Heroku.  The `application.properties` file is also setup to accomodate this* - live project [here!](https://blog-api-springboot-c301743401b3.herokuapp.com/swagger-ui/index.html)
 
 ### To run locally: 
    - Clone the project to your local machine, and install the dependencies.
@@ -26,20 +26,23 @@ Alternatively, use Intellij IDEA and simply run the application from within the 
 
   - __Required environment variables:__
      - your `application.properties` file requires the use of the following variables:
-        - POSTGRES_USER
-        - POSTGRES_PASSWORD
+        - JDBC_DATABASE_URL
+           - If running locally the format of this url should be:
+           - `jdbc:postgresql://localhost:5432/my-database-name?createDatabaseIfNotExist=true` 
+        - JDBC_DATABASE_USERNAME
+        - JDBC_DATABASE_PASSWORD
         - JWT_SECRET
       - Either enter these directly into the `application.properties` file by replacing the respective variable name with same plaintext, or associate the variables correctly using a `.env` file.  Alternatively, you can easily [set these variables directly](https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html) through the Intellij IDEA IDE.
         
    - __Use of .env file for Docker__ 
       - The `docker-compose.yml` file will look for a `.env` as well, specifically for the `POSTGRES_PASSWORD`.  Make sure this file is created in the root directory of the project. This will be the password assigned to your mysql database that will run in a Docker container.
-         - __*NOTE:*__ POSTGRES_PASSWORD must match exactly environment variable of the same name in the `application.properties` file.
+         - __*NOTE:*__ JDBC_DATABASE_PASSWORD must match exactly environment variable of the same name in the `application.properties` file.
            
             - This will be the password assigned to your mysql database that will run in a Docker container.  Your `docker-compose.yml` file is expecting it, and your `application.properties` currently requires it.   
 
 
 
-### Note 2: Requires Docker
+### Note 2: Requires Docker to run locally
 - Install Docker Desktop
 - Make sure Docker Desktop is running
 - Use Docker compose to start the container that holds your database:
